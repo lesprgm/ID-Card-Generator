@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ID Card Generator</title>
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    <link rel="stylesheet" href="form.css">
+</head>
+<body>
+
+<main class="page-wrapper">
+    <form id="userForm">
+        <h2>Create Your ID Card</h2>
+
+        <label for="fullName">Full Name</label>
+        <input id="fullName" name="fullName" type="text" required />
+
+        <label for="age">Age</label>
+        <input id="age" name="age" type="number" required />
+
+        <label for="designation">Designation</label>
+        <input id="designation" name="designation" type="text" required />
+
+        <label for="joiningDate">Joining Date</label>
+        <input id="joiningDate" name="joiningDate" type="date" required />
+
+        <label for="profilePicture">Profile Picture</label>
+        <input id="profilePicture" name="profilePicture" type="file" accept="image/*" required />
+
+        <button type="submit">Generate ID Card</button>
+    </form>
+</main>
+
+</body>
+</html>
