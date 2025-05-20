@@ -104,7 +104,7 @@ body {
     border: 1px solid #d1d5db;
     background-color: #f9fafb;
     color: #6b7280;
-    cursor: not-allowed;
+    cursor: pointer;
 }
 
 .icon {
@@ -128,4 +128,9 @@ body {
     background-color: #1e3a8a;
     color: white;
 }
+
+.cursor-default {
+    cursor: default;
+}
+
 
