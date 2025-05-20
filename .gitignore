@@ -1,10 +1,21 @@
+# Project-specific
 HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
 
-### STS ###
+# Build output
+/target/
+!/src/main/**/target/
+!/src/test/**/target/
+
+# Maven Wrapper JAR (keep it tracked)
+!.mvn/wrapper/maven-wrapper.jar
+
+# Java & IDE-specific
+*.class
+*.log
+*.war
+*.jar
+
+# Eclipse / Spring Tool Suite (STS)
 .apt_generated
 .classpath
 .factorypath
@@ -13,21 +24,30 @@ target/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
+# IntelliJ IDEA
+.idea/
 *.iws
 *.iml
 *.ipr
+out/
 
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
+# VS Code
 .vscode/
+
+# OS and environment-specific
+.DS_Store
+Thumbs.db
+
+# Env and local override configs (good practice to keep secrets out)
+.env
+application-dev.properties
+application-test.properties
+application-prod.properties
+application.properties.local
