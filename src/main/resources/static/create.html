@@ -2,19 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <title>Create ID Card</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ID Card Generator</title>
-
-
     <script src="https://cdn.tailwindcss.com"></script>
 
-
-    <link rel="stylesheet" href="form.css">
+    <link rel="stylesheet" href="form.css" />
+    <link rel="stylesheet" href="preview-card.css" />
 </head>
 <body>
 
-<main class="page-wrapper">
-    <form id="userForm">
+<nav class="navbar">
+    <a href="index.html" class="navbar-back">←</a>
+    <span class="navbar-title">ID Card Generator</span>
+</nav>
+
+<main class="form-preview-wrapper">
+
+    <form id="userForm" class="form-container">
         <h2>Create Your ID Card</h2>
 
         <label for="fullName">Full Name</label>
@@ -30,11 +34,45 @@
         <input id="joiningDate" name="joiningDate" type="date" required />
 
         <label for="profilePicture">Profile Picture</label>
-        <input id="profilePicture" name="profilePicture" type="file" accept="image/*" required />
+        <input id="profilePicture" name="profilePicture" type="file" accept="image/*" />
 
         <button type="submit">Generate ID Card</button>
     </form>
+
+    <div class="flip-card" id="card">
+        <div class="flip-card-inner">
+
+            <div class="flip-card-front">
+                <div class="card-header">
+                    <span>🪪 Employee ID Card</span>
+                    <span class="card-id">ID: <span id="generatedId">--</span></span>
+                </div>
+
+                <div class="card-body">
+                    <div class="photo-placeholder" id="photoPreview">No Photo</div>
+                    <div>
+                        <h2 id="previewName">Your Name</h2>
+                        <p><strong>Designation:</strong> <span id="previewDesignation">--</span></p>
+                        <p><strong>Age:</strong> <span id="previewAge">--</span></p>
+                        <p><strong>Join Date:</strong> <span id="previewDate">--</span></p>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    This card is property of the company and must be returned upon request
+                </div>
+            </div>
+
+            <div class="flip-card-back">
+                <h2>Back of Card</h2>
+                <p>This side can contain a QR code, emergency contact, or company seal.</p>
+            </div>
+
+        </div>
+    </div>
+
 </main>
 
+<script src="preview-card.js"></script>
 </body>
 </html>
