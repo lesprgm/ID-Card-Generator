@@ -1,0 +1,95 @@
+.navbar {
+    background-color: #1e3a8a;
+    color: white;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    font-size: 1.125rem;
+}
+
+.template-page {
+    padding: 2rem 1.5rem;
+    background-color: #f3f4f6;
+    min-height: 100vh;
+}
+
+.template-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #111827;
+}
+
+.template-subtitle {
+    color: #6b7280;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+.template-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+}
+
+.template-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border-width: 2px;
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+}
+
+.template-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #111827;
+}
+
+.template-preview {
+    background-color: #f9fafb;
+    height: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #9ca3af;
+    border-radius: 0.375rem;
+}
+
+.template-desc {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.template-button {
+    background-color: #1e3a8a;
+    color: white;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.2s ease;
+}
+
+.template-button:hover {
+    background-color: #1e40af;
+}
+
+.navbar-title {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    font-size: 1.125rem;
+}
+.navbar-title:hover {
+    text-decoration: underline;
+}
