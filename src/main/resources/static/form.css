@@ -1,3 +1,24 @@
+.navbar {
+    background-color: #1e3a8a;
+    color: white;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.navbar-back {
+    color: white;
+    font-size: 1.25rem;
+    text-decoration: none;
+}
+
+.navbar-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+
 .page-wrapper {
     display: flex;
     justify-content: center;
@@ -56,3 +77,5 @@ form button {
 form button:hover {
     background-color: #1e40af;
 }
+
+
