@@ -14,11 +14,9 @@ import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.colors.ColorConstants;
 //import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 //import com.itextpdf.layout.element.Div;
-import com.itextpdf.layout.properties.AreaBreakType;
-import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.*;
 //import com.itextpdf.layout.properties.HorizontalAlignment;
 
-import com.itextpdf.layout.properties.UnitValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -106,27 +104,58 @@ public class UserController {
             document.setMargins(10, 10, 10, 10);
 
             pdf.addNewPage();
+
             PdfCanvas canvasFront = new PdfCanvas(pdf.getFirstPage());
             canvasFront.setFillColor(ColorConstants.BLUE);
             canvasFront.rectangle(0, cardSize.getHeight() - 20, cardSize.getWidth(), 20);
             canvasFront.fill();
 
+            canvasFront.setFillColor(ColorConstants.BLUE);
+            canvasFront.rectangle(0, 0, cardSize.getWidth(), 20);
+            canvasFront.fill();
+
+
+            Paragraph header = new Paragraph("\uD83D\uDCBC Employee ID Card")
+                    .setFontColor(ColorConstants.WHITE)
+                    .setFontSize(12)
+                    .setBold()
+                    .setTextAlignment(TextAlignment.LEFT);
+            document.showTextAligned(header, 15, cardSize.getHeight() - 20, TextAlignment.LEFT);
+
+            document.add(new Paragraph("Company Name")
+                    .setBold()
+                    .setFontSize(15)
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setMarginTop(11));
+
+            //document.add(new Paragraph("\n"));
+
+            PdfCanvas roundedBorder = new PdfCanvas(pdf.getFirstPage());
+            roundedBorder.setLineWidth(1.5f);
+            roundedBorder.setStrokeColor(ColorConstants.GRAY);
+            roundedBorder.roundRectangle(5, 5, cardSize.getWidth() - 10, cardSize.getHeight() - 10, 10);
+            roundedBorder.stroke();
+
             Table table = new Table(UnitValue.createPercentArray(new float[]{1, 2})).useAllAvailableWidth();
+            table.setBorder(Border.NO_BORDER);
 
             String imagePath = System.getProperty("user.dir") + user.getProfilePicturePath();
             File imageFile = new File(imagePath);
             if (imageFile.exists()) {
                 ImageData imageData = ImageDataFactory.create(imageFile.getAbsolutePath());
                 Image profileImage = new Image(imageData);
-                profileImage.setWidth(60).setHeight(60);
-                Cell imageCell = new Cell().add(profileImage).setBorder(Border.NO_BORDER);
+                profileImage.setWidth(70)
+                        .setHeight(70)
+                        .setBorderRadius(new BorderRadius(35));
+                Cell imageCell = new Cell().add(profileImage).setBorder(Border.NO_BORDER).setVerticalAlignment(VerticalAlignment.MIDDLE);
                 table.addCell(imageCell);
             } else {
                 table.addCell(new Cell().add(new Paragraph("No Photo")).setBorder(Border.NO_BORDER));
             }
 
             Paragraph info = new Paragraph()
-                    .add("Name: " + user.getFullName() + "\n")
+                    .add(new Text(user.getFullName()).setFontSize(14).setBold())
+                    .add("\n")
                     .add("Designation: " + user.getDesignation() + "\n")
                     .add("Age: " + user.getAge() + "\n")
                     .add("Join Date: " + user.getJoiningDate());
