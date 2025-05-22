@@ -5,13 +5,13 @@ import com.idcard.idcardsystem.repository.UserRepository;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.*;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.colors.ColorConstants;
-//import com.itextpdf.kernel.geom.Rectangle;
 //import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 //import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.properties.AreaBreakType;
@@ -105,6 +105,12 @@ public class UserController {
             Document document = new Document(pdf);
             document.setMargins(10, 10, 10, 10);
 
+            pdf.addNewPage();
+            PdfCanvas canvasFront = new PdfCanvas(pdf.getFirstPage());
+            canvasFront.setFillColor(ColorConstants.BLUE);
+            canvasFront.rectangle(0, cardSize.getHeight() - 20, cardSize.getWidth(), 20);
+            canvasFront.fill();
+
             Table table = new Table(UnitValue.createPercentArray(new float[]{1, 2})).useAllAvailableWidth();
 
             String imagePath = System.getProperty("user.dir") + user.getProfilePicturePath();
@@ -130,9 +136,15 @@ public class UserController {
             document.add(table);
 
             document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+
+            PdfCanvas canvasBack = new PdfCanvas(pdf.getLastPage());
+            canvasBack.setFillColor(ColorConstants.BLUE);
+            canvasBack.rectangle(0, 0, cardSize.getWidth(), cardSize.getHeight());
+            canvasBack.fill();
+
             document.add(new Paragraph("This card is property of the company and must be returned upon request.")
                     .setFontSize(10)
-                    .setFontColor(ColorConstants.DARK_GRAY)
+                    .setFontColor(ColorConstants.WHITE)
                     .setTextAlignment(TextAlignment.CENTER)
                     .setMarginTop(70));
 
