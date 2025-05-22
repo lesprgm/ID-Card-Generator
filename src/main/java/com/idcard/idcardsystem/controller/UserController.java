@@ -6,12 +6,17 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.kernel.colors.ColorConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.File;
 import java.io.ByteArrayOutputStream;
 import java.nio.file.*;
 import java.time.LocalDate;
@@ -86,11 +91,22 @@ public class UserController {
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
 
-            document.add(new Paragraph("ID Card").setBold().setFontSize(18));
+            document.add(new Paragraph("ID Card").setBold().setFontSize(18).setFontColor(ColorConstants.BLUE));
+            String imagePath = System.getProperty("user.dir") + user.getProfilePicturePath();
+            File imageFile = new File(imagePath);
+            if (imageFile.exists()) {
+                ImageData imageData = ImageDataFactory.create(imageFile.getAbsolutePath());
+                Image profileImage = new Image(imageData);
+                profileImage.setWidth(100).setHeight(100).setMarginBottom(10);
+                document.add(profileImage);
+            }
+
             document.add(new Paragraph("Full Name: " + user.getFullName()));
             document.add(new Paragraph("Designation: " + user.getDesignation()));
             document.add(new Paragraph("Age: " + user.getAge()));
             document.add(new Paragraph("Joining Date: " + user.getJoiningDate()));
+            document.add(new Paragraph("This card is property of the company.").setFontSize(10).setFontColor(ColorConstants.GRAY));
+
 
             document.close();
 
