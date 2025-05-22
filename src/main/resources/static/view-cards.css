@@ -60,3 +60,20 @@ body {
     color: #4b5563;
     margin: 0.125rem 0;
 }
+
+.download-button {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #1e3a8a;
+    color: white;
+    font-size: 0.875rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.download-button:hover {
+    background-color: #3b82f6;
+}
+
