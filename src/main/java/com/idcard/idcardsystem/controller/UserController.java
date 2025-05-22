@@ -2,14 +2,23 @@ package com.idcard.idcardsystem.controller;
 
 import com.idcard.idcardsystem.model.User;
 import com.idcard.idcardsystem.repository.UserRepository;
+import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.borders.Border;
+import com.itextpdf.layout.element.*;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.layout.element.Image;
 import com.itextpdf.kernel.colors.ColorConstants;
+//import com.itextpdf.kernel.geom.Rectangle;
+//import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+//import com.itextpdf.layout.element.Div;
+import com.itextpdf.layout.properties.AreaBreakType;
+import com.itextpdf.layout.properties.TextAlignment;
+//import com.itextpdf.layout.properties.HorizontalAlignment;
+
+import com.itextpdf.layout.properties.UnitValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -89,23 +98,43 @@ public class UserController {
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             PdfWriter writer = new PdfWriter(out);
             PdfDocument pdf = new PdfDocument(writer);
-            Document document = new Document(pdf);
 
-            document.add(new Paragraph("ID Card").setBold().setFontSize(18).setFontColor(ColorConstants.BLUE));
+            PageSize cardSize = new PageSize(300, 180);
+            pdf.setDefaultPageSize(cardSize);
+
+            Document document = new Document(pdf);
+            document.setMargins(10, 10, 10, 10);
+
+            Table table = new Table(UnitValue.createPercentArray(new float[]{1, 2})).useAllAvailableWidth();
+
             String imagePath = System.getProperty("user.dir") + user.getProfilePicturePath();
             File imageFile = new File(imagePath);
             if (imageFile.exists()) {
                 ImageData imageData = ImageDataFactory.create(imageFile.getAbsolutePath());
                 Image profileImage = new Image(imageData);
-                profileImage.setWidth(100).setHeight(100).setMarginBottom(10);
-                document.add(profileImage);
+                profileImage.setWidth(60).setHeight(60);
+                Cell imageCell = new Cell().add(profileImage).setBorder(Border.NO_BORDER);
+                table.addCell(imageCell);
+            } else {
+                table.addCell(new Cell().add(new Paragraph("No Photo")).setBorder(Border.NO_BORDER));
             }
 
-            document.add(new Paragraph("Full Name: " + user.getFullName()));
-            document.add(new Paragraph("Designation: " + user.getDesignation()));
-            document.add(new Paragraph("Age: " + user.getAge()));
-            document.add(new Paragraph("Joining Date: " + user.getJoiningDate()));
-            document.add(new Paragraph("This card is property of the company.").setFontSize(10).setFontColor(ColorConstants.GRAY));
+            Paragraph info = new Paragraph()
+                    .add("Name: " + user.getFullName() + "\n")
+                    .add("Designation: " + user.getDesignation() + "\n")
+                    .add("Age: " + user.getAge() + "\n")
+                    .add("Join Date: " + user.getJoiningDate());
+            Cell infoCell = new Cell().add(info).setBorder(Border.NO_BORDER);
+            table.addCell(infoCell);
+
+            document.add(table);
+
+            document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            document.add(new Paragraph("This card is property of the company and must be returned upon request.")
+                    .setFontSize(10)
+                    .setFontColor(ColorConstants.DARK_GRAY)
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setMarginTop(70));
 
 
             document.close();
