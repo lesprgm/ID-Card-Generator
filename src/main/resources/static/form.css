@@ -78,4 +78,14 @@ form button:hover {
     background-color: #1e40af;
 }
 
+.form-preview-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+
 
