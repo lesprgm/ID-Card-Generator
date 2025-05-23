@@ -36,6 +36,8 @@
         <label for="profilePicture">Profile Picture</label>
         <input id="profilePicture" name="profilePicture" type="file" accept="image/*" />
 
+        <input type="hidden" id="templateColor" name="templateColor" value="#1e3a8a">
+
         <button type="submit">Generate ID Card</button>
     </form>
 
@@ -43,7 +45,7 @@
         <div class="flip-card-inner">
 
             <div class="flip-card-front">
-                <div class="card-header">
+                <div class="card-header" id = "cardHeader">
                     <span>🪪 Employee ID Card</span>
                     <span class="card-id">ID: <span id="generatedId">--</span></span>
                 </div>

@@ -2,6 +2,8 @@ package com.idcard.idcardsystem.controller;
 
 import com.idcard.idcardsystem.model.User;
 import com.idcard.idcardsystem.repository.UserRepository;
+import com.itextpdf.kernel.colors.Color;
+import com.itextpdf.kernel.colors.WebColors;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -12,10 +14,7 @@ import com.itextpdf.layout.element.*;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.colors.ColorConstants;
-//import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
-//import com.itextpdf.layout.element.Div;
 import com.itextpdf.layout.properties.*;
-//import com.itextpdf.layout.properties.HorizontalAlignment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -60,7 +59,8 @@ public class UserController {
             @RequestParam("age") int age,
             @RequestParam("designation") String designation,
             @RequestParam("joiningDate") String joiningDate,
-            @RequestParam("profilePicture") MultipartFile profilePicture
+            @RequestParam("profilePicture") MultipartFile profilePicture,
+            @RequestParam("templateColor") String templateColor
     ) {
         try {
             String uploadDir = System.getProperty("user.dir") + "/uploads/";
@@ -75,6 +75,7 @@ public class UserController {
             user.setDesignation(designation);
             user.setJoiningDate(LocalDate.parse(joiningDate));
             user.setProfilePicturePath("/uploads/" + filename);
+            user.setTemplateColor(templateColor);
 
             userRepository.save(user);
 
@@ -102,16 +103,18 @@ public class UserController {
 
             Document document = new Document(pdf);
             document.setMargins(10, 10, 10, 10);
-
             pdf.addNewPage();
 
-            PdfCanvas canvasFront = new PdfCanvas(pdf.getFirstPage());
-            canvasFront.setFillColor(ColorConstants.BLUE);
-            canvasFront.rectangle(0, cardSize.getHeight() - 20, cardSize.getWidth(), 20);
-            canvasFront.fill();
+            String templateColor = user.getTemplateColor();
+            if (templateColor == null || templateColor.isEmpty()) {
+                templateColor = "#1e3a8a";
+            }
 
-            canvasFront.setFillColor(ColorConstants.BLUE);
-            canvasFront.rectangle(0, 0, cardSize.getWidth(), 20);
+            PdfCanvas canvasFront = new PdfCanvas(pdf.getFirstPage());
+
+            Color headerColor = WebColors.getRGBColor(templateColor);
+            canvasFront.setFillColor(headerColor);
+            canvasFront.rectangle(0, cardSize.getHeight() - 25, cardSize.getWidth(), 25);
             canvasFront.fill();
 
 

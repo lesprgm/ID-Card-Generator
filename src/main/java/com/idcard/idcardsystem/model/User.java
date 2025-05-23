@@ -19,6 +19,18 @@ public class User {
     @Column(unique = true, nullable = false)
     private String uniqueId = UUID.randomUUID().toString();
 
+    @Column(name = "template_color")
+    private String templateColor;
+
+    public String getTemplateColor() {
+        return templateColor;
+    }
+
+    public void setTemplateColor(String templateColor) {
+        this.templateColor = templateColor;
+    }
+
+
     public Long getId() {
         return id;
     }

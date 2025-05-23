@@ -10,6 +10,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewDate = document.getElementById('previewDate');
     const idDisplay = document.getElementById('generatedId');
 
+    const cardHeader = document.getElementById("cardHeader");
+    const selectedColor = localStorage.getItem("selectedTemplateColor") || "#1e3a8a";
+    if (cardHeader) {
+        cardHeader.style.backgroundColor = selectedColor;
+    }
+
+    const colorInput = document.getElementById("templateColor");
+    if (colorInput) {
+        colorInput.value = selectedColor;
+    }
+
+    localStorage.removeItem("selectedTemplateColor");
+
     idDisplay.textContent = Math.floor(100000 + Math.random() * 900000);
 
     nameInput.addEventListener('input', () => {

@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log("User object:", user);
 
                 const profileImage = `<img src="${user.profilePicturePath}" alt="Profile"/>`;
+                const selectedColor = localStorage.getItem("selectedTemplateColor") || "#1e3a8a";
+                const encodedColor = encodeURIComponent(selectedColor);
+
 
                 const content = `
           ${profileImage}
@@ -18,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <p><strong>Designation:</strong> ${user.designation}</p>
             <p><strong>Age:</strong> ${user.age}</p>
             <p><strong>Join Date:</strong> ${user.joiningDate}</p>
-            <a href="/api/users/${user.id}/pdf" class="download-button" download>
+            <a href="/api/users/${user.id}/pdf?templateColor=${encodedColor}" class="download-button" download>
               Download PDF
             </a>
           </div>
