@@ -35,7 +35,7 @@ This project is a web-based **ID Card Generator System** built with **Spring Boo
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 - **Backend:** Java, Spring Boot, Spring Web, Spring Data JPA
 - **Frontend:** HTML, Tailwind CSS, Vanilla JavaScript
@@ -84,17 +84,7 @@ This project is a web-based **ID Card Generator System** built with **Spring Boo
 
 ---
 
-##  Resetting the Database
 
-To clear all user data and reset the ID count:
-
-```sql
-TRUNCATE TABLE user;
-```
-
----
-
-
-## ✨ Author
+##  Author
 
 Built by Leslie Osei-Anane as a full-stack Java + JavaScript integration project.
